@@ -1,3 +1,16 @@
+import { fireEvent, render, screen } from '@testing-library/react'
+import { createCard } from '../../data/card/factory'
+import { Card } from './Card'
+
 describe('Card component unit tests', () => {
-  // TODO: Add unit tests
+  const mockedCard = createCard({
+    content: 'test content',
+  })
+  it('if clicking on <Card /> enters edit mode', () => {
+    render(<Card {...mockedCard} />)
+    const card = screen.getByText('test content')
+    fireEvent.click(card)
+    const textarea = screen.getByRole('textbox')
+    expect(textarea).toBeInTheDocument()
+  })
 })
