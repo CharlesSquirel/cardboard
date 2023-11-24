@@ -90,13 +90,11 @@ describe('BoardContainer integration tests', () => {
       fireEvent.change(textbox, {
         target: { value: 'new card value' },
       })
-      console.log(textbox.value)
       expect(textbox.textContent).toBe('new card value')
       textbox.setSelectionRange(textbox.value.length, textbox.value.length)
       fireEvent.keyDown(textbox, {
         key: 'Backspace',
         code: 'Backspace',
-        charCode: '8',
       })
       expect(textbox).toBeInTheDocument()
     })
