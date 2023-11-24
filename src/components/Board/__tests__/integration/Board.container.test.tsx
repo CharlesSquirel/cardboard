@@ -17,6 +17,7 @@ describe('BoardContainer integration tests', () => {
       fireEvent.click(addBtn)
       expect(screen.getByText("Click to start noting")).toBeInTheDocument()
     })
+    expect(createCardSpy).toHaveBeenCalledTimes(1)
   })
-  
+
 })
