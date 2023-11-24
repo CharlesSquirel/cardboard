@@ -1,3 +1,9 @@
 {
-  "cards": []
+  "cards": [
+    {
+      "id": 1700847109712,
+      "content": "new text",
+      "createdAt": "2023-11-24T17:31:49.712Z"
+    }
+  ]
 }
