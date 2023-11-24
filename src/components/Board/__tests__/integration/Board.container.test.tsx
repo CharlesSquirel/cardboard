@@ -19,5 +19,32 @@ describe('BoardContainer integration tests', () => {
     })
     expect(createCardSpy).toHaveBeenCalledTimes(1)
   })
+  it("update selected card content correctly", async () => {
+    const mockedNewText = 'new text'
+    vi.spyOn(dataModule, 'findCards').mockResolvedValue([])
+    const createCardSpy = vi
+    .spyOn(dataModule.CardModel.prototype, 'create')
+    .mockResolvedValue()
+    const updateCardSpy = vi
+    .spyOn(dataModule.CardModel.prototype, 'update')
+    .mockResolvedValue()
+    render(<BoardContainer/>)
+    const addBtn = screen.getByRole("button", {
+      name: "Add new card"
+    })
+    await waitFor(() => {
+      fireEvent.click(addBtn)
+      const card = screen.getByText("Click to start noting")
+      fireEvent.click(card)
+      const textarea = screen.getByRole("textbox")
+      fireEvent.change(textarea, {
+        target:{
+          name: mockedNewText
+        }
+    })
+    fireEvent.blur(card)
+    const newCard = screen.getByText(mockedNewText)
+  })
+  })
 
 })
