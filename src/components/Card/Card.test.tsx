@@ -17,9 +17,10 @@ describe('Card component unit tests', () => {
   it("if clicking outside edit mode exits edit mode", () => {
     render(<Card {...mockedCard} />)
     const card = screen.getByText('test content')
+    const textarea = screen.getByRole("textbox")
     fireEvent.click(card)
-    fireEvent.blur(screen.getByRole("textbox"))
-    expect(card).not.toBeInTheDocument()
+    fireEvent.blur(textarea)
+    expect(textarea).not.toBeInTheDocument()
   })
   it("if onUpdateCard is being fired when exiting edit mode", () => {
     const mockUpdateCard = vi.fn()
