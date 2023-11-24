@@ -2,6 +2,7 @@ import { vi } from 'vitest'
 import * as dataModule from '../../../../data'
 import { render, waitFor, screen, fireEvent } from '@testing-library/react'
 import BoardContainer from '../../Board.container'
+import { createManyCards } from '../../../../data/card/factory'
 
 describe('BoardContainer integration tests', () => {
   it('if clicking on <AddNewCard /> adds new card to database, and displays it correctly in <Board />', async () => {
@@ -100,5 +101,16 @@ describe('BoardContainer integration tests', () => {
     })
     expect(createCardSpy).toHaveBeenCalledTimes(1)
     expect(deleteCardSpy).not.toHaveBeenCalled()
+  })
+  it('tests displaying cards', async () => {
+    const mockedGetCards = vi
+      .spyOn(dataModule, 'findCards')
+      .mockResolvedValue(createManyCards(10))
+    render(<BoardContainer />)
+    await waitFor(() => {
+      expect(screen.getByTestId('board')).toBeInTheDocument()
+      expect(screen.getByTestId('board').children).toHaveLength(11)
+    })
+    expect(mockedGetCards).toHaveBeenCalled()
   })
 })
