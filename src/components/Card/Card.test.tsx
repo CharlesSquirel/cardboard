@@ -13,4 +13,11 @@ describe('Card component unit tests', () => {
     const textarea = screen.getByRole('textbox')
     expect(textarea).toBeInTheDocument()
   })
+  it("if clicking outside edit mode exits edit mode", () => {
+    render(<Card {...mockedCard} />)
+    const card = screen.getByText('test content')
+    fireEvent.click(card)
+    fireEvent.blur(card)
+    expect(card).not.toBeInTheDocument()
+  })
 })
